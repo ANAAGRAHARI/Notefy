@@ -22,6 +22,7 @@ export const signup=(req,res,next)=>{
     const email = req.body.Email
     Users.findOne({UserName:Username})
     .then((user)=>{
+        console.log(user)
         if(user){
             res.json({message:"username already taken"})
         }else{
@@ -102,14 +103,29 @@ export const deleteUser=(req,res,next)=>{
 }
 
 export const getNotes =(req,res,next)=>{
-
+    Notes.findOne(req.body.userId)
+    .then((data)=>{
+        res.json(data)
+    })
 }
 
 export const addNotes =(req,res,next)=>{
-
+    if(req.body.userId){
+        const newNote=new Notes({
+            note:req.body.note,
+            userId:req.body.userId
+        })
+        newNote.save()
+        .then(()=>{
+            res.json({message:"note saved"})
+        })
+        .catch((err)=>{
+            res.json(err)
+        })
+    }
 }
 export const updateNotes=(req,res,next)=>{
-    
+
 }
 
 export const deleteNotes=(req,res,next)=>{
