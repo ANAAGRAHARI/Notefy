@@ -101,9 +101,8 @@ export const deleteUser=(req,res,next)=>{
         res.json({message: `something went wrong${err}`})
     })
 }
-
 export const getNotes =(req,res,next)=>{
-    Notes.findOne(req.body.userId)
+    Notes.find({userId:req.body.userId})
     .then((data)=>{
         res.json(data)
     })
@@ -112,7 +111,9 @@ export const getNotes =(req,res,next)=>{
 export const addNotes =(req,res,next)=>{
     if(req.body.userId){
         const newNote=new Notes({
+            Title:req.body.Title,
             note:req.body.note,
+            Data:req.body.data,
             userId:req.body.userId
         })
         newNote.save()
@@ -124,11 +125,29 @@ export const addNotes =(req,res,next)=>{
         })
     }
 }
-export const updateNotes=(req,res,next)=>{
 
+export const updateNotes=(req,res,next)=>{
+    const NoteId= req.body.Id
+    let updatednote= {
+        note:req.body.note
+    }
+
+    Notes.findByIdAndUpdate(NoteId,{$set:updatednote})
+    .then(()=>{
+        res.json({message:"Note Updated"})
+    })
+    .catch((err)=>{
+        res.json(err)
+    })
 }
 
 export const deleteNotes=(req,res,next)=>{
-
+    Notes.findByIdAndRemove(req.body.Id)
+    .then( ()=>{
+        res.json({message:"Note deleted"})
+    }
+    ).catch((err)=>{
+       res.json({message:err})
+    })
 }
 
