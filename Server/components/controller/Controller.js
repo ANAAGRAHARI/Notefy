@@ -64,7 +64,7 @@ export const login=(req,res,next)=>{
             bcrypt.compare(req.body.Password,data.Password,
                 function(err,result){
                 if(err){
-                    res.json({message:err})
+                    res.json({message:err,text:"somethng"})
                 }
                 if(result){
                     res.json({message:"Logged in",login:true,userId:data._id})
@@ -113,7 +113,7 @@ export const addNotes =(req,res,next)=>{
         const newNote=new Notes({
             Title:req.body.Title,
             note:req.body.note,
-            Data:req.body.data,
+            Date:req.body.date,
             userId:req.body.userId
         })
         newNote.save()
@@ -150,4 +150,5 @@ export const deleteNotes=(req,res,next)=>{
        res.json({message:err})
     })
 }
+
 

@@ -9,9 +9,9 @@ const port = process.env.PORT
 
 const app = express()
 app.use(express.json())
-app.use(morgan('dev'))
 app.use(express.urlencoded({extended:true}))
 app.use('/upload',express.static('uploads'))
+app.use(morgan('dev'))
 app.use(cors())
 app.use("/api/",router)
 DBconnect()
