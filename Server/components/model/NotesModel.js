@@ -7,7 +7,7 @@ const notesSchema = new schema({
         type:"string"
     },
     note:{
-        type:"array"    
+        type:"string"    
     },
     Date:{
         type:"string"
