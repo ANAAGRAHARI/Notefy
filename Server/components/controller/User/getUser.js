@@ -3,8 +3,8 @@ import bcrypt from "bcrypt"
 import express from "express";
 const router = express.Router()
 
-router.get('/getUser' ,getUser=(req,res,next)=>{
-    Users.find()
+router.get('/getUser' ,async (req,res,next)=>{
+    await Users.find()
     .then((response)=>{
         res.json(response)
     })
@@ -13,8 +13,8 @@ router.get('/getUser' ,getUser=(req,res,next)=>{
     })
 })
 
-router.get('/getuserbyid',getuserbyid=(req,res,next)=>{
-    Users.findById(req.body.Id)
+router.get('/getuserbyid',async (req,res,next)=>{
+    await Users.findById(req.body.Id)
     .then((user)=>{
         res.json({data:user})
     })

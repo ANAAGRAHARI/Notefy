@@ -1,11 +1,12 @@
-import Users from "../model/UserModel.js"
+import Users from "../../model/UserModel.js"
 import bcrypt from "bcrypt"
-import express from "express";
+import express from 'express'
+
 const router = express.Router()
 
-router.post('/signup' , adduser=(req,res,next)=>{
+router.post('/signup' , async (req,res,next)=>{
     const {Username,email}= req.body
-    Users.findOne({UserName:Username})
+    await Users.findOne({UserName:Username})
     .then((user)=>{
         console.log(user)
         if(user){

@@ -5,7 +5,7 @@ import * as dotenv from 'dotenv'
 import router from './components/router/router.js'
 import DBconnect from './components/database/database.js'
 dotenv.config()
-const port =  3001;
+const port =  process.env.PORT;
 // process.env.PORT ||
 
 const app = express()
@@ -15,6 +15,7 @@ app.use('/upload',express.static('uploads'))
 app.use(morgan('dev'))
 app.use(cors())
 app.use("/api/",router)
+app.use(router)
 DBconnect()
 
 app.listen(port,()=>{

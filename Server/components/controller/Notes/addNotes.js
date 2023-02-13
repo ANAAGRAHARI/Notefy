@@ -1,16 +1,17 @@
+import Notes from "../../model/NotesModel.js"
+import express from 'express'
+import { auth } from "../User/Auth/Auth.js";
+const router = express.Router()
 
-import Notes from "../model/NotesModel.js"
-
-
-export const addNotes =(req,res,next)=>{
+router.post('/addNotes',auth ,async (req,res,next)=>{
     if(req.body.userId){
-        const newNote=new Notes({
+        const newNote= new Notes({
             Title:req.body.Title,
             note:req.body.note,
             Date:req.body.date,
             userId:req.body.userId
         })
-        newNote.save()
+        await newNote.save()
         .then(()=>{
             res.json({message:"note saved"})
         })
@@ -18,4 +19,6 @@ export const addNotes =(req,res,next)=>{
             res.json(err)
         })
     }
-}
+})
+
+export {router as addNotes}

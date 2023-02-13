@@ -1,19 +1,21 @@
+import Notes from "../../model/NotesModel.js"
+import express from 'express'
+const router = express.Router()
 
 
-import Notes from "../model/NotesModel.js"
-
-
-export const updateNotes=(req,res,next)=>{
+router.post('/updateNotes', async (req,res,next)=>{
     const NoteId= req.body.Id
     let updatednote= {
         note:req.body.note
     }
 
-    Notes.findByIdAndUpdate(NoteId,{$set:updatednote})
+    await Notes.findByIdAndUpdate(NoteId,{$set:updatednote})
     .then(()=>{
         res.json({message:"Note Updated"})
     })
     .catch((err)=>{
         res.json(err)
     })
-}
+})
+
+export {router as  updateNotes}
